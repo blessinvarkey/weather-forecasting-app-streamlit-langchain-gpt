@@ -2,8 +2,9 @@ import streamlit as st
 from langchain.llms import OpenAI
 from langchain.agents import load_tools, initialize_agent, AgentType
 
-llm = OpenAI(temperature=0, api_key=st.secrets["OPENAIAPIKEY"])  # Streamlit secret for OpenAI key
+llm = OpenAI(temperature=0, api_key=st.secrets["OPENAIAPIKEY"])# Streamlit secret for OpenAI key
 tools = load_tools(["openweathermap-api"], llm, api_key=st.secrets["OPENWEATHERMAPAPIKEY"])  # Add Weather API
+
 
 weather_agent = initialize_agent(
     tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
