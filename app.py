@@ -2,9 +2,8 @@ import streamlit as st
 from langchain.llms import OpenAI
 from langchain.agents import load_tools, initialize_agent, AgentType
 
-# Initialize LLM and tools outside the Streamlit app function to avoid reinitializing on each interaction
-llm = OpenAI(temperature=0, api_key=st.secrets["OPENAIAPIKEY"])  # Direct use of Streamlit secret for OpenAI key
-tools = load_tools(["openweathermap-api"], llm, api_key=st.secrets["OPENWEATHERMAPAPIKEY"])  # Add API key directly to the tool if needed
+llm = OpenAI(temperature=0, api_key=st.secrets["OPENAIAPIKEY"])  # Streamlit secret for OpenAI key
+tools = load_tools(["openweathermap-api"], llm, api_key=st.secrets["OPENWEATHERMAPAPIKEY"])  # Add Weather API
 
 weather_agent = initialize_agent(
     tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
