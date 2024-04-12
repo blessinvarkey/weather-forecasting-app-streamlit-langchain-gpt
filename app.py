@@ -4,12 +4,6 @@ from langchain.agents import load_tools, initialize_agent, AgentType
 
 llm = OpenAI(temperature=0, api_key=st.secrets["OPENAIAPIKEY"])# Streamlit secret for OpenAI key
 tools = load_tools(["openweathermap-api"], llm, api_key=st.secrets["OPENWEATHERMAPAPIKEY"])  # Add Weather API
-try:
-    llm = OpenAI(temperature=0, api_key=st.secrets["OPENAIAPIKEY"])
-    tools = load_tools(["openweathermap-api"], llm, api_key=st.secrets["OPENWEATHERMAPAPIKEY"])
-except Exception as e:
-    st.error(f"Failed to initialize LangChain components: {str(e)}")
-
 
 weather_agent = initialize_agent(
     tools=tools, llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
